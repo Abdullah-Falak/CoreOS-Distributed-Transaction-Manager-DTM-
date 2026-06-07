@@ -1,66 +1,91 @@
-# CoreOS-Distributed-Transaction-Manager-DTM-
-## 🚀 Getting Started: Creating, Compiling, and Executing
-Follow these step-by-step instructions to set up and run the project from your Linux terminal.
-### Step 1: Create the Source File
-Open your terminal and use the nano text editor to create a new C file:
-```bash
+CoreOS: Distributed Transaction Manager (DTM)
+
+C
+Kali
+
+
+CoreOS DTM is a low-level Operating System simulation project written in C. It models how modern operating systems manage concurrent tasks efficiently and safely by handling process creation, CPU scheduling, resource allocation, and inter-process synchronization using the Linux kernel's core POSIX libraries.
+
+
+Author: Abdullah Falak
+Program: BSCS (5th Semester) Operating Systems Project
+Environment: Kali Linux / POSIX-compliant UNIX  
+
+
+
+📖 Project Scenario
+
+Imagine a banking server receiving hundreds of transaction requests simultaneously. If two requests try to deduct money from the same account at the exact same millisecond, data corruption occurs. This project simulates the underlying Operating System mechanisms required to prevent that. It takes a batch of transactions, schedules them optimally, checks if running them will crash the system (Deadlock), and then executes them securely using isolated memory locks.
+
+
+
+🧠 Core Operating System Concepts Implemented
+
+This project seamlessly integrates 10 fundamental OS concepts into a single cohesive application:
+
+
+
+Fork: Master process spawns independent Worker child processes.
+
+Wait: Master halts execution until all Worker processes complete.
+
+Sleep: Simulates CPU execution (burst) time.
+
+CPU Scheduling Algorithm: Implements Shortest Job First (SJF).
+
+Mutex: Binary semaphore locking the shared memory ledger.
+
+Semaphore: Counting semaphore limiting concurrent database connections.
+
+Banker's Logic: Pre-assesses resource allocation for safety.
+
+Deadlock Avoidance: Denies execution if an unsafe state is detected.
+
+Msg Signal: Catches SIGINT (Ctrl+C) for safe IPC cleanup.
+
+IPC (Inter-Process Communication): Utilizes POSIX Shared Memory (shmget, shmat).
+
+
+
+📂 Repository Structure
+
+├── main.c                                  # Main C source code file
+├── CoreOS_DTM_Project_Report.docx          # Detailed academic project documentation
+└── README.md                               # Project overview and execution guide
+
+
+⚙️ Prerequisites
+
+To run this project, you need a Linux environment with the GNU Compiler Collection (GCC) installed.
+
+
+gcc --version
+
+
+🚀 Create, Compile & Execute
+
+1. Create the Source File Open your terminal and use the nano text editor to create the C file:
+
+
 nano main.c
 
-```
-### Step 2: Add the Code
- 1. Copy the source code for the project.
- 2. Paste it into the terminal window.
- 3. Save the file and exit nano by pressing:
-   * Ctrl + O (to save)
-   * Enter (to confirm the file name)
-   * Ctrl + X (to exit)
-### Step 3: Compile the Code
-You must link the POSIX threads library (-pthread) when compiling because the project utilizes semaphores and mutexes. Run the following command:
-```bash
+(Paste the project code into this file. Save by pressing Ctrl + O, hit Enter to confirm, and exit with Ctrl + X.)
+
+
+2. Compile the Code You must link the POSIX threads library (-pthread) when compiling because the project utilizes semaphores and mutexes.
+
+
 gcc main.c -o core_project -pthread
 
-```
-*(If successful, the command will complete silently without any errors.)*
-### Step 4: Execute the Project
-Run the compiled binary executable using:
-```bash
+3. Execute the Project ```bash
 ./core_project
 
-```
-## 📊 Expected Output Example
-When you run the project, the terminal will display the live lifecycle of the operating system simulation:
-```text
-=== CoreOS Distributed Transaction Manager ===
 
-[Scheduler] Organizing jobs using Shortest Job First (SJF)...
-[Banker] Checking system state for Deadlock avoidance...
-[Banker] System is in a SAFE STATE. No deadlocks detected. Proceeding...
 
-[Worker 6241] Starting Job ID 3...
-[Worker 6241] Finished Job ID 3. New Ledger Balance: $4900
-[Worker 6240] Starting Job ID 2...
-[Worker 6240] Finished Job ID 2. New Ledger Balance: $4800
-[Worker 6242] Starting Job ID 1...
-[Worker 6242] Finished Job ID 1. New Ledger Balance: $4700
+---
 
-[Master] All processes completed successfully. Triggering safe shutdown...
-
-[Signal] System interrupt (2) received. Cleaning up IPC resources...
-
-```
-"""
-file_path = '/mnt/data/README.md'
-with open(file_path, 'w', encoding='utf-8') as f:
-f.write(markdown_content)
-file_path
-```
-Your Markdown file is ready
-[file-tag: code-generated-file-0-1780847440533535222]
-
-I have generated the `README.md` file specifically formatted for a GitHub repository. 
-
-It is structured with markdown formatting (like bolding, headers, and code blocks) so that when you upload it to GitHub, it will automatically render into a clean, professional instruction page. It includes the exact step-by-step terminal commands you used to get it running earlier, so anyone visiting your repository will know exactly how to test it. 
-
-You can download the file and place it directly into your project folder alongside your `main.c` file before pushing it to your repository. Let me know if you need any adjustments to the steps or formatting!
-
-```
+## 📈 Future Enhancements
+While this project satisfies the core requirements for an OS simulation, future iterations could include:
+* Transitioning from multi-processing (`fork`) to multi-threading (`pthreads`) for lower memory overhead.
+* Implementing Dynamic Memory Allocation for handling an infinite queue of incoming jobs.
+* Adding a logging mechanism to write all transaction outcomes to a permanent `.txt` file.
